@@ -1,1 +1,3 @@
-# calculator
+# Калькулятор
+
+![Калькулятор](/img/screen.png)
