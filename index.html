@@ -1,0 +1,117 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Calculator</title>
+  <style>
+
+    HTML, BODY {
+      height: 100%;
+    }
+
+    BODY {
+      background: #FFF;
+      font: 18px/1.4 'Trebuchet Ms', sans-serif;
+      color: #222;
+    }
+
+    .wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      min-width: 320px;
+      max-width: 800px;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .tip {
+      margin-bottom: .5rem;
+      line-height: 1.4;
+      color: #AAA;
+    }
+      .tip__example {
+        display: inline-block;
+        border-bottom: 1px dashed;
+        cursor: pointer;
+      }
+
+    .input {
+      width: 100%;
+      padding: .5rem 1rem;
+      box-sizing: border-box;
+      border: 1px solid #CCC;
+      border-radius: 5px;
+      font-size: 2rem;
+      font-family: inherit;
+      color: #333;
+    }
+
+    .result {
+      width: 100%;
+      height: 6rem;
+      overflow: hidden;
+      text-align: right;
+      font-size: 5rem;
+      line-height: 1.2;
+      color: #DDD;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="tip">Введите арифметическое выражение, например: <span class="tip__example"></span></div>
+    <input type="text" class="input">
+    <div class="result"></div>
+  </div>
+
+  <script src="./js/tinylib.js"></script>
+  <script src="./js/calculator.js"></script>
+
+  <script>
+    //------------------------------
+
+    var $ = tinyLib;
+    var inputElem = $.get('.input');
+    var resultElem = $.get('.result');
+    var tipExample = $.get('.tip__example');
+
+    var tips = [
+      '12 + 24 / 8 * 5',
+      '1 + 2 + 3 + 4 + 5',
+      '1000 / 25 - 20 + 3',
+      '80 - 8 / 2 * 5',
+      '3 * 4 - 10 + 28',
+      '44 / 11 * 2 - 7'
+      ];
+
+    fillTips();
+
+    //------------------------------
+
+    inputElem.elem.oninput = function () {
+      resultElem.html( Calculator.compute( this.value ));
+    };
+
+    //------------------------------
+
+    tipExample.elem.onclick = function () {
+      inputElem.val ( this.innerHTML );
+      resultElem.html( Calculator.compute( this.innerHTML ));
+      fillTips ();
+    };
+
+    //------------------------------
+
+    function fillTips () {
+      var randPos = Math.floor( Math.random() * tips.length );
+      tipExample.html( tips[ randPos ] );
+    }
+
+
+  </script>
+</body>
+</html>
